@@ -7,9 +7,28 @@ const exphbs = require('express-handlebars');
 const hbs = exphbs.create({});
 
 
+//for expression session, and connect-session-sequelize usage
+const session = require('express-session');
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
+};
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+//also for connect session as express sestion
+app.use(session(sess));
+
+//express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //more handlebar set up
