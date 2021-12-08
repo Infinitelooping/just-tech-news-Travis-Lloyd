@@ -25,17 +25,19 @@ const sess = {
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-//also for connect session as express sestion
+//also for connect session as express session
 app.use(session(sess));
 
 //express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 //more handlebar set up
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 // end of handlebars set up
-//allows to path to stylesheets
+
+//allows to path to stylesheets ... expres.static is a middleware built in function that allows you to serve static files (ie public).
 app.use(express.static(path.join(__dirname, 'public')));
 
 // turn on routes
